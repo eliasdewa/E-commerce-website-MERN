@@ -1,8 +1,13 @@
 import { useState } from "react"
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom"
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
+
+  // To Show number on cart
+  const product = useSelector(state => state.cart.products)
+  // console.log(product)
 
   return (
     <header>
@@ -35,7 +40,7 @@ const Navbar = () => {
             <button className="hover:text-primary">
               <i className="ri-shopping-bag-line"></i>
               <sup className="text-sm inline-block px-1.5 text-white rounded-full
-              bg-primary text-center">0</sup>
+              bg-primary text-center">{product.length}</sup>
             </button>
           </span>
           {/* user icon */}
