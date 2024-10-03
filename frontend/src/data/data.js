@@ -1,4 +1,5 @@
-[
+// Products data
+export const products = [
   {
     "id": 1,
     "name": "Leather Handbag",
@@ -103,6 +104,65 @@
     "oldPrice": 79.99,
     "image": "https://plus.unsplash.com/premium_photo-1664298355914-bc65d2c9af64?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "color": "green",
-    "rating": 4.2
+    "rating": 3
   }
-]
+];
+// Blogs data
+export const blogs = [
+  {
+    "id": 1,
+    "title": "Mastering the Art of Capsule Wardrobes",
+    "subtitle": "Timeless Elegance",
+    "date": "12th August 2022",
+    "imageUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "id": 2,
+    "title": "Unveiling the Hottest Beachwear Trends",
+    "subtitle": "Summer Breeze",
+    "date": "18th January 2023",
+    "imageUrl": "https://images.unsplash.com/photo-1700159017572-de76bb0c5719?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "id": 3,
+    "title": "Navigating the World of Women's Tailoring",
+    "subtitle": "Power Dressing",
+    "date": "5th January 2025",
+    "imageUrl": "https://plus.unsplash.com/premium_photo-1682142715511-27bfbfdc044f?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+      "id": 4,
+      "title": "The World's Best Fashion Fair 2025",
+      "subtitle": "New York Times",
+      "date": "25th May 2025",
+      "imageUrl": "https://plus.unsplash.com/premium_photo-1713720663924-4e3fe8f20f79?q=80&w=1948&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+];
+
+// Steps data
+export const steps = [
+  {
+    status: 'pending',
+    label: 'Pending',
+    description: 'Your order has been created and is awaiting processing.',
+    icon: { iconName: 'time-line', bgColor: 'red-500', textColor: 'gray-800' },
+  },
+  {
+    status: 'processing',
+    label: 'Processing',
+    description: 'Your order is currently being processed.',
+    icon: { iconName: 'loader-line', bgColor: 'yellow-800', textColor: 'yellow-800' },
+  },
+  {
+    status: 'shipped',
+    label: 'Shipped',
+    description: 'Your order has been shipped.',
+    icon: { iconName: 'truck-line', bgColor: 'blue-800', textColor: 'blue-800' },
+  },
+  {
+    status: 'completed',
+    label: 'Completed',
+    description: 'Your order has been successfully completed.',
+    icon: { iconName: 'check-line', bgColor: 'green-800', textColor: 'green-900' },
+  },
+];

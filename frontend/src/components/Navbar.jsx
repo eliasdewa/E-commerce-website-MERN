@@ -5,7 +5,7 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <header className="fixed-nav-bar w-nav">
+    <header>
       <nav className="max-w-screen-2xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="nav__logo">
