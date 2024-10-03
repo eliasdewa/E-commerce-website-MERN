@@ -26,7 +26,7 @@ export const products = [
   {
     "id": 3,
     "name": "Gold Necklace",
-    "category": "jewellery",
+    "category": "jewellers",
     "description": "Exquisite gold necklace with intricate design.",
     "price": 199.99,
     "image": "https://images.unsplash.com/photo-1631097969294-c38afba59496?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -67,7 +67,7 @@ export const products = [
   {
     "id": 7,
     "name": "Diamond Earrings",
-    "category": "jewellery",
+    "category": "jewellers",
     "description": "Sparkling diamond earrings that add elegance to any outfit.",
     "price": 299.99,
     "oldPrice": 349.99,
