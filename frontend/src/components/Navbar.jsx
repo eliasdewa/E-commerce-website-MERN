@@ -1,13 +1,18 @@
 import { useState } from "react"
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom"
+import CartModal from "../pages/products/CartModal";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   // To Show number on cart
-  const product = useSelector(state => state.cart.products)
+  const products = useSelector(state => state.cart.products)
   // console.log(product)
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const handleCartToggle = () => {
+    setIsCartOpen(!isCartOpen);
+  };
 
   return (
     <header>
@@ -37,10 +42,10 @@ const Navbar = () => {
           </span>
           {/* cart icon */}
           <span>
-            <button className="hover:text-primary">
+            <button onClick={handleCartToggle} className="hover:text-primary">
               <i className="ri-shopping-bag-line"></i>
               <sup className="text-sm inline-block px-1.5 text-white rounded-full
-              bg-primary text-center">{product.length}</sup>
+              bg-primary text-center">{products.length}</sup>
             </button>
           </span>
           {/* user icon */}
@@ -77,6 +82,9 @@ const Navbar = () => {
           </div>
         )}
       </nav>
+      {
+        isCartOpen && <CartModal products={products} isCartOpen={isCartOpen} onClose={handleCartToggle} />
+      }
     </header>
   )
 }
