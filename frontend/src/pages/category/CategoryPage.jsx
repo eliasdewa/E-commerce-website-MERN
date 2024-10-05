@@ -13,10 +13,7 @@ const CategoryPage = () => {
     // Set filteredProducts state with filtered products
     setFilteredProducts(filteredProducts);
   }, [categoryName]);
-  // To load from the top
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  
   return (
     <>
       <section className="bg-primary-light p-8 mt-8 mb-12">
