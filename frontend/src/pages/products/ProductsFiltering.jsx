@@ -69,7 +69,7 @@ const ProductsFiltering = ({
     </div>
     {/* Clear Filters */}
     <div>
-      <button onClick={clearFilters} className="w-full bg-primary text-white py-1 px-4">
+      <button onClick={clearFilters} className="w-full bg-primary/70 hover:bg-primary text-white py-1 px-4 rounded-md">
         Clear Filters
       </button>
     </div>
