@@ -1,14 +1,9 @@
 import asyncHandler from "express-async-handler";
 import userModel from "../models/user.model.js";
-// import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import validator from "validator";
 import errorHandler from "../middleware/errorHandler.js";
-
-// Create token
-// const createToken = (id) => {
-//   return jwt.sign({ id }, process.env.JWT_SECRET);
-// };
+import { generateToken } from "../middleware/generateToken.js";
 
 // Register new user
 const registerUser = asyncHandler(async (req, res, next) => {
@@ -43,8 +38,6 @@ const registerUser = asyncHandler(async (req, res, next) => {
   });
   // save new user
   const user = await newUser.save();
-  // // Generate and send JWT token
-  // const token = createToken(user._id);
   res
     .status(201)
     .json({ success: true, message: "User registered successfully" });
@@ -68,27 +61,96 @@ const loginUser = asyncHandler(async (req, res, next) => {
     return next(errorHandler("Invalid Credentials", 400));
   }
   // Generate and send JWT token
-  // const token = createToken(user._id);
-  res.json({ success: true, message: "User logged in successfully" });
+  const token = await generateToken(user._id);
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+  });
+  res.status(200).json({
+    message: "User logged in successfully",
+    token,
+    user: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      profileImage: user.profileImage,
+      bio: user.bio,
+      profession: user.profession,
+    },
+  });
 });
 
-// Admin Login
-const adminLogin = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
-  // Validate the data
-  if (!email || !password) {
-    return next(errorHandler("All fields are required!", 400));
-  }
-  if (
-    email !== process.env.ADMIN_EMAIL &&
-    password !== process.env.ADMIN_PASSWORD
-  ) {
-    return next(errorHandler("Invalid Credentials", 400));
-  }
-  // Generate and send JWT token
-  const token = jwt.sign(email + password, process.env.JWT_SECRET);
-
-  res.json({ success: true, message: "Admin logged in successfully", token });
+// Logout user
+const logoutUser = asyncHandler(async (req, res, next) => {
+  res.clearCookie("token");
+  res.status(200).json({ message: "User logged out successfully" });
 });
 
-export { registerUser, loginUser, adminLogin };
+// get all users
+const getUsers = asyncHandler(async (req, res, next) => {
+  const users = await userModel
+    .find({}, "id email role")
+    .sort({ createdAt: -1 });
+  res.status(200).json(users);
+});
+
+// delete user
+const deleteUser = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await userModel.findByIdAndDelete(id);
+  if (!user) {
+    return next(errorHandler("User not found", 404));
+  }
+  res.status(200).json({ message: "User deleted successfully" });
+});
+
+// update user
+const updateUser = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const { role } = req.body;
+  const user = await userModel.findByIdAndUpdate(id, { role }, { new: true });
+  if (!user) {
+    return next(errorHandler("User not found", 404));
+  }
+  res.status(200).json({ message: "User role updated successfully" });
+});
+
+// edit or update user profile
+const updateUserProfile = asyncHandler(async (req, res, next) => {
+  const { userId, name, profileImage, bio, profession } = req.body;
+  if (!userId) {
+    return next(errorHandler("User ID is required", 400));
+  }
+  const user = await userModel.findById(userId);
+  if (!user) {
+    return next(errorHandler("User not found", 404));
+  }
+  // update profile
+  if (name !== undefined) user.name = name;
+  if (profileImage !== undefined) user.profileImage = profileImage;
+  if (bio !== undefined) user.bio = bio;
+  if (profession !== undefined) user.profession = profession;
+
+  await user.save();
+  res.status(200).json({ message: "User profile updated successfully", user: {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    profileImage: user.profileImage,
+    bio: user.bio,
+    profession: user.profession,
+  } });
+});
+
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  getUsers,
+  deleteUser,
+  updateUser,
+  updateUserProfile,
+};
