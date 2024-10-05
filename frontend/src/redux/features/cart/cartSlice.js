@@ -50,6 +50,16 @@ export const cartSlice = createSlice({
       state.tax = setTax(state);
       state.grandTotalPrice = setGrandTotalPrice(state);
     },
+    // Remove item from cart
+    removeCartProduct: (state, action) => {
+      state.products = state.products.filter(
+        (product) => product._id !== action.payload.id
+      );
+      state.selectedItems = setSelectedItems(state);
+      state.totalPrice = setTotalPrice(state);
+      state.tax = setTax(state);
+      state.grandTotalPrice = setGrandTotalPrice(state);
+    },
   },
 });
 
@@ -78,6 +88,6 @@ export const setGrandTotalPrice = (state) => {
 };
 
 // Action creators are generated for each case reducer function
-export const { addToCart, updateQuantity } = cartSlice.actions;
+export const { addToCart, updateQuantity, removeCartProduct } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -1,13 +1,20 @@
 import { useDispatch } from "react-redux";
 import OrderSummary from "./OrderSummary";
-import { updateQuantity } from "../../redux/features/cart/cartSlice";
+import {
+  removeCartProduct,
+  updateQuantity,
+} from "../../redux/features/cart/cartSlice";
 
 const CartModal = ({ products, isCartOpen, onClose }) => {
   const dispatch = useDispatch();
 
   const handleQuantity = (type, id) => {
-    dispatch(updateQuantity({type, id}))
-  }
+    dispatch(updateQuantity({ type, id }));
+  };
+  const handleRemove = (e, id) => {
+    e.preventDefault();
+    dispatch(removeCartProduct({ id }));
+  };
   return (
     <div
       className={`fixed z-[1000] inset-0 bg-black bg-opacity-80 transition-opacity ${
@@ -64,7 +71,10 @@ const CartModal = ({ products, isCartOpen, onClose }) => {
                     {/* Product quantity - incr or decr */}
                     <div className="flex justify-end md:justify-start items-center mt-2">
                       {/* Decrease quantity */}
-                      <button onClick={() => handleQuantity('decrement', item._id)} className="size-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-primary hover:text-white ml-8">
+                      <button
+                        onClick={() => handleQuantity("decrement", item._id)}
+                        className="size-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-primary hover:text-white ml-8"
+                      >
                         -
                       </button>
                       {/* Quantity value */}
@@ -72,11 +82,17 @@ const CartModal = ({ products, isCartOpen, onClose }) => {
                         {item.quantity}
                       </span>
                       {/* Increase quantity */}
-                      <button onClick={() => handleQuantity('increment', item._id)} className="size-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-primary hover:text-white">
+                      <button
+                        onClick={() => handleQuantity("increment", item._id)}
+                        className="size-6 flex items-center justify-center px-1.5 rounded-full bg-gray-200 text-gray-700 hover:bg-primary hover:text-white"
+                      >
                         +
                       </button>
+                      {/* Remove product */}
                       <div className="ml-5">
-                        <i className="ri-delete-bin-line p-1.5 object-cover rounded-full hover:bg-primary"></i>
+                        <button onClick={(e) => handleRemove(e, item._id)}>
+                          <i className="ri-delete-bin-line p-1.5 object-cover rounded-full hover:bg-primary"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -85,9 +101,7 @@ const CartModal = ({ products, isCartOpen, onClose }) => {
             )}
           </div>
           {/* Total amount */}
-          {
-            products.length > 0 && <OrderSummary />
-          }
+          {products.length > 0 && <OrderSummary />}
         </div>
       </div>
     </div>
