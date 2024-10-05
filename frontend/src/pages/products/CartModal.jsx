@@ -91,7 +91,7 @@ const CartModal = ({ products, isCartOpen, onClose }) => {
                       {/* Remove product */}
                       <div className="ml-5">
                         <button onClick={(e) => handleRemove(e, item._id)}>
-                          <i className="ri-delete-bin-line p-1.5 object-cover rounded-full hover:bg-primary"></i>
+                          <i className="ri-delete-bin-line ri-xl hover:text-primary"></i>
                         </button>
                       </div>
                     </div>
