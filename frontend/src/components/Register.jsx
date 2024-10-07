@@ -1,15 +1,35 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRegisterUserMutation } from "../redux/features/auth/authApi";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-  const handleSubmit = (e) => {
+
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  const [registerUser, {isLoading}] = useRegisterUserMutation()
+  // handle registration
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // login logic here
-    console.log({ name, email, password });
+    // Registration logic here
+    const data = {
+      name,
+      email,
+      password,
+    }
+    // console.log(data);
+    try {
+      const response = await registerUser(data).unwrap();
+      console.log(response);
+      toast.success(response.message);
+      navigate('/login');
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.message);
+    }
   };
   return (
     <section className="h-screen flex items-center justify-center">

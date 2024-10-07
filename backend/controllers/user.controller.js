@@ -106,7 +106,7 @@ const deleteUser = asyncHandler(async (req, res, next) => {
   res.status(200).json({ message: "User deleted successfully" });
 });
 
-// update user
+// update user role
 const updateUser = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const { role } = req.body;
@@ -142,7 +142,7 @@ const updateUserProfile = asyncHandler(async (req, res, next) => {
     profileImage: user.profileImage,
     bio: user.bio,
     profession: user.profession,
-  } });
+  }});
 });
 
 export {

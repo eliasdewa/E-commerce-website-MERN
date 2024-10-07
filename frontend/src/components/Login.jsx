@@ -1,14 +1,35 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "../redux/features/auth/authApi";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  const [loginUser, {isLoading}] = useLoginUserMutation()
+
+  // handle login
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = {
+      email,
+      password,
+    }
+    // console.log({ email, password });
     // login logic here
-    console.log({ email, password });
+    try {
+      const response = await loginUser(data).unwrap();
+      console.log(response);
+      toast.success(response.message);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
   return (
     <section className="h-screen flex items-center justify-center">
