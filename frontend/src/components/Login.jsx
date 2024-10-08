@@ -3,14 +3,15 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../redux/features/auth/authApi";
 import { toast } from "react-toastify";
+import { setUser } from "../redux/features/auth/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const [loginUser, {isLoading}] = useLoginUserMutation()
+  const dispatch = useDispatch();
 
   // handle login
   const handleSubmit = async (e) => {
@@ -24,6 +25,9 @@ const Login = () => {
     try {
       const response = await loginUser(data).unwrap();
       console.log(response);
+      // destructure token and user data
+      const {token, user} = response;
+      dispatch(setUser({user}))
       toast.success(response.message);
       navigate('/');
     } catch (error) {
