@@ -4,7 +4,9 @@ import errorHandler from "./errorHandler.js";
 
 // Middleware to verify JWT token
 const verifyToken = asyncHandler(async (req, res, next) => {
-  const token = req.cookies.token;
+  // const token = req.cookies.token;
+  const token = req.headers['authorization'].split(' ')[1];
+  
   if (!token) {
     return next(errorHandler("Not authorized, token is required"), 401);
   }
