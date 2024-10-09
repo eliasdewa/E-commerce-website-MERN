@@ -4,7 +4,8 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import { connectDB } from './config/db.js';
 import dotenv from "dotenv";
-import userRouter from './routes/user.route.js';
+import userRouter from './routes/users.route.js';
+import productRouter from './routes/products.route.js';
 import errorMiddleware from './middleware/errorMiddleware.js';
 
 // app configuration
@@ -24,7 +25,8 @@ app.use(cors({
 })); // we can access the backend from any frontend
 
 // api endpoint
-app.use('/api/auth/', userRouter);
+app.use('/api/auth', userRouter);
+app.use('/api/products', productRouter);
 
 // Error handlers middleware
 app.use(errorMiddleware);

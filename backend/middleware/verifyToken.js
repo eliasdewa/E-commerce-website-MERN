@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
-import errorHandler from "./errorHandler";
+import errorHandler from "./errorHandler.js";
 
 // Middleware to verify JWT token
 const verifyToken = asyncHandler(async (req, res, next) => {
@@ -16,3 +16,5 @@ const verifyToken = asyncHandler(async (req, res, next) => {
   req.role = token_decoded.role;
   next();
 });
+
+export default verifyToken;

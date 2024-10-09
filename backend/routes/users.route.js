@@ -11,7 +11,6 @@ const userRouter = express.Router();
 userRouter.post('/register', registerUser);
 userRouter.post('/login', loginUser);
 userRouter.post('/logout', logoutUser);
-
 // Add other routes for user management here
 userRouter.get('/users', getUsers);
 userRouter.delete('/users/:id', deleteUser);

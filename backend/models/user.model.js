@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   bio: {type: String, maxlength: 255},
   profession: {type: String},
   createdAt: {type: Date, default: Date.now()},
-}); // minimize because whenever we will create the cart object by default we have provided the value empty object
+});
 
 const userModel = mongoose.models.User || mongoose.model('User', userSchema);
 export default userModel;
