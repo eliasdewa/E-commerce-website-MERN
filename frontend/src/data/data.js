@@ -1,7 +1,6 @@
 // Products data
 export const products = [
   {
-    "_id": 1,
     "name": "Leather Handbag",
     "category": "accessories",
     "description": "Stylish leather handbag with ample storage space.",
@@ -13,7 +12,6 @@ export const products = [
     "author":"admin"
   },
   {
-    "_id": 2,
     "name": "Evening Gown",
     "category": "dress",
     "description": "Elegant evening gown for special occasions.",
@@ -24,7 +22,6 @@ export const products = [
     "rating": 4.0
   },
   {
-    "_id": 3,
     "name": "Gold Necklace",
     "category": "jewellers",
     "description": "Exquisite gold necklace with intricate design.",
@@ -34,7 +31,6 @@ export const products = [
     "rating": 4.7
   },
   {
-    "_id": 4,
     "name": "Matte Lipstick",
     "category": "cosmetics",
     "description": "Long-lasting matte lipstick in various shades.",
@@ -44,7 +40,6 @@ export const products = [
     "rating": 4.2
   },
   {
-    "_id": 5,
     "name": "Silk Scarf",
     "category": "accessories",
     "description": "Luxurious silk scarf with vibrant colors.",
@@ -55,7 +50,6 @@ export const products = [
     "rating": 4.3
   },
   {
-    "_id": 6,
     "name": "Cocktail Dress",
     "category": "dress",
     "description": "Chic cocktail dress for parties and events.",
@@ -65,7 +59,6 @@ export const products = [
     "rating": 4.4
   },
   {
-    "_id": 7,
     "name": "Diamond Earrings",
     "category": "jewellers",
     "description": "Sparkling diamond earrings that add elegance to any outfit.",
@@ -76,7 +69,6 @@ export const products = [
     "rating": 4.8
   },
   {
-    "_id": 8,
     "name": "Foundation",
     "category": "cosmetics",
     "description": "High-coverage foundation for a flawless finish.",
@@ -86,7 +78,6 @@ export const products = [
     "rating": 4.1
   },
   {
-    "_id": 9,
     "name": "Sunglasses",
     "category": "accessories",
     "description": "Trendy sunglasses with UV protection.",
@@ -96,7 +87,6 @@ export const products = [
     "rating": 4.6
   },
   {
-    "_id": 10,
     "name": "Casual Pants",
     "category": "dress",
     "description": "Comfortable maxi dress for casual outings.",

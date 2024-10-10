@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { products } from "../../data/data";
+// import { products } from "../../data/data";
 import ProductCard from "./ProductCard";
 import ProductsFiltering from "./ProductsFiltering";
+import { useFetchAllProductsQuery } from "../../redux/features/products/productsApi";
+import { current } from "@reduxjs/toolkit";
 
 const filters = {
   categories: ["all", "accessories", "dress", "jewellers", "cosmetics"],
@@ -14,37 +16,49 @@ const filters = {
   ],
 };
 const Products = () => {
+  const { data, error, isLoading } = useFetchAllProductsQuery();
+  // console.log(data);
+  const products = data?.products || [];
+
   const [productsData, setProductsData] = useState(products);
+  // console.log(productsData)
   const [filterState, setFilterState] = useState({
     category: "all",
     color: "all",
     priceRange: "",
   });
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(8);
+
   // Apply filter function
   const applyFilter = () => {
     let filteredProducts = products;
     // Apply category filter
     if (filterState.category && filterState.category !== "all") {
       filteredProducts = filteredProducts.filter(
-        product => product.category === filterState.category
+        (product) => product.category === filterState.category
       );
     }
     // Apply color filter
     if (filterState.color && filterState.color !== "all") {
       filteredProducts = filteredProducts.filter(
-        product => product.color === filterState.color
+        (product) => product.color === filterState.color
       );
     }
     // Apply price range filter
     if (filterState.priceRange) {
-      const [minPrice, maxPrice] = filterState.priceRange.split('-').map(Number);
-      filteredProducts = filteredProducts.filter((product) =>
-        product.price >= minPrice && product.price <= maxPrice
+      const [minPrice, maxPrice] = filterState.priceRange
+        .split("-")
+        .map(Number);
+      filteredProducts = filteredProducts.filter(
+        (product) => product.price >= minPrice && product.price <= maxPrice
       );
     }
     setProductsData(filteredProducts);
+    setCurrentPage(1);
   };
-
   useEffect(() => {
     applyFilter();
   }, [filterState]);
@@ -56,6 +70,17 @@ const Products = () => {
       pricesRange: "all",
     });
   };
+
+  // pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = productsData.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Pagination functionality
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  if (isLoading) return <h1>Loading...</h1>;
+  if (error) return <h1>Error: {error.message}</h1>;
 
   return (
     <>
@@ -78,9 +103,44 @@ const Products = () => {
           {/* Right side - Products display */}
           <div>
             <h3 className="text-xl font-medium mb-4">
-              Available Products: {productsData.length}
+              Showing: {currentItems.length} out of {products.length} products
             </h3>
-            <ProductCard products={productsData} />
+            <ProductCard products={currentItems} />
+            {/* Pagination */}
+            <div className="flex justify-center gap-2 mt-6">
+              {/* Previous */}
+              <button
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2"
+              >
+                Previous
+              </button>
+              {/* number */}
+              {Array.from({
+                length: Math.ceil(productsData.length / itemsPerPage),
+              }).map((_, idx) => (
+                <button
+                  key={idx + 1}
+                  onClick={() => paginate(idx + 1)}
+                  className={`px-4 py-2 rounded-md ${
+                    currentPage === idx + 1
+                      ? "bg-blue-700 text-white"
+                      : "bg-gray-200"
+                  }`}
+                >
+                  {idx + 1}
+                </button>
+              ))}
+              {/* Next */}
+              <button
+                onClick={() => paginate(currentPage + 1)}
+                disabled={currentPage === currentItems.length}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2"
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </section>
