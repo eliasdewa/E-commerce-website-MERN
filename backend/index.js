@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import userRouter from './routes/users.route.js';
 import productRouter from './routes/products.route.js';
 import errorMiddleware from './middleware/errorMiddleware.js';
+import reviewRouter from './routes/reviews.route.js';
 
 // app configuration
 const app = express();
@@ -27,6 +28,7 @@ app.use(cors({
 // api endpoint
 app.use('/api/auth', userRouter);
 app.use('/api/products', productRouter);
+app.use('/api/reviews', reviewRouter);
 
 // Error handlers middleware
 app.use(errorMiddleware);

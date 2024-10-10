@@ -19,6 +19,4 @@ productRouter.patch('/update-product/:id', verifyToken, verifyAdmin, updateProdu
 productRouter.delete('/:id', deleteProduct);
 
 
-
-
 export default productRouter;
