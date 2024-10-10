@@ -10,7 +10,7 @@ const Register = () => {
 
   const navigate = useNavigate();
   // const dispatch = useDispatch();
-  const [registerUser, {isLoading}] = useRegisterUserMutation()
+  const [registerUser, {error, isLoading}] = useRegisterUserMutation()
   // handle registration
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +31,10 @@ const Register = () => {
       toast.error(error.response.message);
     }
   };
+
+  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading...</p>;
+  
   return (
     <section className="h-screen flex items-center justify-center">
       <div className="max-w-sm border shadow-2xl bg-white mx-auto p-8">

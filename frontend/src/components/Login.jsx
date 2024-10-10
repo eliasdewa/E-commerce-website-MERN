@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   
   const navigate = useNavigate();
-  const [loginUser, {isLoading}] = useLoginUserMutation()
+  const [loginUser, {error, isLoading}] = useLoginUserMutation()
   const dispatch = useDispatch();
 
   // handle login
@@ -35,6 +35,10 @@ const Login = () => {
       toast.error(error.message);
     }
   };
+
+  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading...</p>;
+
   return (
     <section className="h-screen flex items-center justify-center">
       <div className="max-w-sm border shadow-2xl bg-white mx-auto p-8">

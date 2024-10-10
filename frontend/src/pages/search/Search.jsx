@@ -1,8 +1,12 @@
 import { useState } from "react"
-import { products } from "../../data/data";
 import ProductCard from "../products/ProductCard";
+import { useFetchAllProductsQuery } from "../../redux/features/products/productsApi";
 
 const Search = () => {
+  const { data, error, isLoading } = useFetchAllProductsQuery();
+  // console.log(data);
+  const products = data?.products || [];
+
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProducts, setFilteredProducts] = useState(products);
   const handleSearch = () => {
@@ -11,6 +15,10 @@ const Search = () => {
     setFilteredProducts(filtered);
     // setSearchQuery('');
   }
+
+  if (error) return <p>Error: {error.message}</p>;
+  if (isLoading) return <p>Loading...</p>;
+
   return (
     <>
       <section className="bg-primary-light p-8 my-8">
