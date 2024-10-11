@@ -62,7 +62,7 @@ const Navbar = () => {
     }
   };
   return (
-    <header className="sticky top-0 z-50 bg-white">
+    <header className="sticky top-0 z-30 bg-white">
       <nav className="max-w-screen-2xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="nav__logo">

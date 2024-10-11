@@ -3,6 +3,7 @@ import RatingStars from "../../components/RatingStars";
 import { useDispatch } from "react-redux"
 import { useFetchProductByIdQuery } from "../../redux/features/products/productsApi";
 import { addToCart } from "../../redux/features/cart/cartSlice";
+import ReviewCard from "./ReviewCard";
 
 const SingleProduct = () => {
   const {id} = useParams()
@@ -54,7 +55,7 @@ const SingleProduct = () => {
             <h3 className="text-2xl font-semibold mb-4">{singleProduct.name}</h3>
             <p className="text-xl text-primary mb-4">
             ${singleProduct.price} {" "}
-            {singleProduct?.oldPrice && <del className="text-">${singleProduct.oldPrice}</del>}
+            {singleProduct?.oldPrice && <s className="text-sm text-gray-700">${singleProduct.oldPrice}</s>}
             </p>
             <p className="text-gray-400 mb-4">{singleProduct.description}</p>
             {/* Additional Product info */}
@@ -84,7 +85,7 @@ const SingleProduct = () => {
       </section>
       {/* Product Reviews */}
       <section className="section__content">
-        review
+        <ReviewCard productReviews={productReviews}/>
       </section>
     </>
   );

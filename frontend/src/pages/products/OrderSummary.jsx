@@ -13,7 +13,7 @@ const OrderSummary = () => {
   return (
     <div className="bg-primary-light mt-5 rounded text-base">
       <div className="px-6 py-4 space-y-5">
-        <h2 className="text-xl text-text-dark">Order Summary</h2>
+        <h2 className="text-xl text-text-dark font-semibold">Order Summary</h2>
         <p className="text-text-dark mt-2">Selected Items: {selectedItems}</p>
         <p>Total Price: ${totalPrice.toFixed(2)}</p>
         <p>Tax ({taxRate * 100}%): ${tax.toFixed(2)}</p>
