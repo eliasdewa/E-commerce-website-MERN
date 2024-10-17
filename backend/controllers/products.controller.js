@@ -4,7 +4,7 @@ import reviewModel from "../models/reviews.model.js";
 import errorHandler from "../middleware/errorHandler.js";
 
 // create a product
-const createProduct = asyncHandler(async (req, res) => {
+const createProduct = asyncHandler(async (req, res, next) => {
   const newProduct = await productModel({
     ...req.body
   })

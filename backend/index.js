@@ -33,6 +33,5 @@ app.use('/api/reviews', reviewRouter);
 // Error handlers middleware
 app.use(errorMiddleware);
 
-
 // port Listener
 app.listen(port, () => console.log(`Server listening on http://localhost:${port}`));
